@@ -1,9 +1,16 @@
 /* ************************************************************************************************************* */
 
+html {
+  scroll-behavior: smooth;
+}
 body {
   margin: 0;
   font-family: "Sigmar", serif;
   letter-spacing: 1px;
+  overflow-x: hidden;
+}
+body::-webkit-scrollbar {
+  width: 0px;
 }
 
 /* ************************************************************************************************************* */
@@ -49,6 +56,7 @@ body {
 .navbar a {
   color: white;
   text-decoration: none;
+  font-size: larger;
 }
 
 /* ************************************************************************************************************* */
@@ -96,3 +104,81 @@ body {
 }
 
 /* ************************************************************************************************************* */
+
+.AboutUs {
+  /* background-color: red; */
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background: linear-gradient(to bottom, #dedeea, #32667e);
+}
+
+/* ************************************************************************************************************* */
+
+.special {
+  /* background-color: yellow; */
+  margin: 0 10vw
+}
+.special h1 {
+  margin: 0px 0;
+  font-size: xxx-large;
+}
+.special p {
+  margin: 0;
+  width: 60%;
+  color: rgb(59, 59, 59)
+}
+.special button {
+  position: relative;
+  right: -70vw;
+  top: -10vh;
+  display: block;
+}
+
+/* ************************************************************************************************************* */
+
+.specialCards {
+  /* background-color: yellow; */
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10vw;
+  width: 90vw;
+  margin: 0 5vw;
+  gap: 25px;
+}
+.card {
+  /* background-color: purple; */
+  border-radius: 50px 50px 0 0;
+  padding-bottom: 10px;
+  /* border: 2px solid black; */
+}
+.card p:nth-child(1) {
+  display: inline;
+  position: relative;
+  right: -37vw;
+  top: -40vh;
+  font-size: xxx-large;
+  margin: 0;
+}
+.card img {
+  height: 350px;
+  width: 450px;
+  border-radius: 50px;
+  position: relative;
+  left: -24px;
+}
+.card p:nth-child(3) {
+  margin: 0;
+  padding: 0px 10px;
+}
+
+/* ************************************************************************************************************* */
+
+.Destination {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(to bottom, #32667e, #dedeea);
+  /* background: linear-gradient(to bottom, #dedeea, #32667e); */
+}
