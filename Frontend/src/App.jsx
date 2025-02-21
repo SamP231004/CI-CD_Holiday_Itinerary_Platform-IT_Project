@@ -1,6 +1,12 @@
 import logo from './Images_Used/logo.png';
+import logo1 from './Images_Used/lang.png';
+import logo2 from './Images_Used/contact.png';
+import logo3 from './Images_Used/arrow.png';
 import image1 from './Images_Used/card1.jpg';
 import image2 from './Images_Used/card2.jpg';
+import dest1 from './Images_Used/spring.jpg';
+import dest2 from './Images_Used/street.jpg'; 
+import dest3 from './Images_Used/snow.jpg';
 
 function App() {
   return (
@@ -18,8 +24,8 @@ function App() {
             <a href="#AboutUs">About Us</a>
           </div>
           <div className="extras">
-            <button>ENG</button>
-            <button>Contact Us</button>
+            <button><img src={logo1} alt="" /> ENG</button>
+            <button><img src={logo2} alt="" /> Contact Us</button>
           </div>
         </div>
         <div className="tagline">
@@ -28,7 +34,7 @@ function App() {
             <p>Hidden gems, breathtaking views, unforgettable adventures-where will you go next ?</p>
           </div>
           <div>
-            <button>Book Now</button>
+            <button>Book Now <img src={logo3} alt="" /></button>
           </div>
         </div>
       </div>
@@ -36,7 +42,7 @@ function App() {
         <div className="special">
           <h1>What's so special about this ?</h1>
           <p>Save more on your trips with exclusive discounts, seasonal promotions and unbeatable deals for unforgettable adventures.</p>
-          <button>Learn More</button>
+          <button>Learn More <img src={logo3} alt="" /></button>
         </div>
         <div className="specialCards">
           <div className="card">
@@ -51,7 +57,29 @@ function App() {
           </div>
         </div>
       </div>
-      <div id="Destination" className="Destination"></div>
+      <div id="Destination" className="Destination">
+        <div className="favorite">
+          <h1>Your next favorite place awaits</h1>
+          <p>Get the best value for your trips with exclusive discounts, seasonal promotions, and deals to save while exploring the world! <button>See All <img src={logo3} alt="" /></button></p>
+        </div>
+        <div className="destinationCards">
+          <div>
+            <p>12 Destination</p>
+            <img src={dest1} alt="" />
+            <p>Italy</p>
+          </div>
+          <div>
+            <p>15 Destination</p>
+            <img src={dest2} alt="" />
+            <p>Japan</p>
+          </div>
+          <div>
+            <p>14 Destination</p>
+            <img src={dest3} alt="" />
+            <p>Indonesia</p>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
