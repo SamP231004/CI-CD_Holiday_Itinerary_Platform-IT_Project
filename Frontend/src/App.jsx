@@ -7,6 +7,15 @@ import image2 from './Images_Used/card2.jpg';
 import dest1 from './Images_Used/spring.jpg';
 import dest2 from './Images_Used/street.jpg'; 
 import dest3 from './Images_Used/snow.jpg';
+import tour1 from './Images_Used/night.jpg'
+import tour2 from './Images_Used/sunrise.jpg'
+import tour3 from './Images_Used/colorful.jpg'
+import gallery1 from './Images_Used/autumn.jpg'
+import gallery2 from './Images_Used/boat.jpg'
+import gallery3 from './Images_Used/boats.jpg'
+import gallery4 from './Images_Used/desert.jpg'
+import gallery5 from './Images_Used/water.jpg'
+import gallery6 from './Images_Used/waterSide.jpg'
 
 function App() {
   return (
@@ -19,8 +28,8 @@ function App() {
           <div className="tabs">
             <a href="#Home">Home</a>
             <a href="#Destination">Destination</a>
-            <a href="">Gallery</a>
-            <a href="">Package</a> 
+            <a href="#TopTours">Top Tours</a>
+            <a href="#Gallery">Gallery</a> 
             <a href="#AboutUs">About Us</a>
           </div>
           <div className="extras">
@@ -78,6 +87,43 @@ function App() {
             <img src={dest3} alt="" />
             <p>Indonesia</p>
           </div>
+        </div>
+      </div>
+      <div id='TopTours' className="TopTours">
+        <div className="topTourClass">
+          <h1>Top tours to spark your wanderlust</h1>
+          <p>Explore our curated selection of must-visit destinations, complete with unbeatable prices, detailed itineraries, and unforgettable experiences. Your next adventure starts here!</p>
+        </div>
+        <div className="tourCards">
+          <div><img src={tour1} alt="" />Rocky Mountain Adventure</div>
+          <div className='tourCard2'>
+            <img src={tour2} alt="" />
+            <p>
+              <p>Santori Sunset Escape</p>
+              <p>4 Days / 3 Nights  </p>
+            </p>
+            <p>Visit historic landmarks like Kinkaku-ji and Fushimi Inari Shrine with an expert guide</p>
+            <p>From Rs 11,000 <button>Book Now</button></p>
+          </div>
+          <div><img src={tour3} alt="" />Kyoto Cultural Journey</div>
+        </div>
+      </div>
+      <div id='Gallery' className="gallery">
+        <div className="galleryContainer">
+        <div className="image-track">
+          <img src={gallery1} alt="" />
+          <img src={gallery2} alt="" />
+          <img src={gallery3} alt="" />
+          <img src={gallery4} alt="" />
+          <img src={gallery5} alt="" />
+          <img src={gallery6} alt="" />
+          <img src={gallery1} alt="" />
+          <img src={gallery2} alt="" />
+          <img src={gallery3} alt="" />
+          <img src={gallery4} alt="" />
+          <img src={gallery5} alt="" />
+          <img src={gallery6} alt="" />
+        </div>
         </div>
       </div>
     </>
