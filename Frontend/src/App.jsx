@@ -17,6 +17,20 @@ import gallery4 from './Images_Used/desert.jpg'
 import gallery5 from './Images_Used/water.jpg'
 import gallery6 from './Images_Used/waterSide.jpg'
 
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(import.meta.env.VITE_REACT_APP_KEY);
+
+const handlePayment = async () => {
+  const stripe = await stripePromise;
+  const response = await fetch("http://localhost:5000/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+  });
+
+  const session = await response.json();
+  window.location.href = session.url;
+};
+
 function App() {
   return (
     <>
@@ -103,7 +117,7 @@ function App() {
               <p>4 Days / 3 Nights  </p>
             </p>
             <p>Visit historic landmarks like Kinkaku-ji and Fushimi Inari Shrine with an expert guide</p>
-            <p>From Rs 11,000 <button>Book Now</button></p>
+            <p>From Rs 11,000 <button onClick={handlePayment}>Book Now</button></p>
           </div>
           <div><img src={tour3} alt="" />Kyoto Cultural Journey</div>
         </div>
