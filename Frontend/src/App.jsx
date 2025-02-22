@@ -75,17 +75,17 @@ function App() {
           <div>
             <p>12 Destination</p>
             <img src={dest1} alt="" />
-            <p>Italy</p>
+            <p>Japan</p>
           </div>
           <div>
             <p>15 Destination</p>
             <img src={dest2} alt="" />
-            <p>Japan</p>
+            <p>Italy</p>
           </div>
           <div>
             <p>14 Destination</p>
             <img src={dest3} alt="" />
-            <p>Indonesia</p>
+            <p>Amsterdam</p>
           </div>
         </div>
       </div>
