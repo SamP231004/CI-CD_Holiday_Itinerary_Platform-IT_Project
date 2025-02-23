@@ -20,18 +20,38 @@ import gallery6 from './Images_Used/waterSide.jpg'
 import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(import.meta.env.VITE_REACT_APP_KEY);
 
-const handlePayment = async () => {
-  const stripe = await stripePromise;
-  const response = await fetch("http://localhost:5000/create-checkout-session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-  });
-
-  const session = await response.json();
-  window.location.href = session.url;
-};
+import TripCustomizationPopup from './Itinerary/TripCustomizationPopup.jsx';
+import { useState } from 'react';
 
 function App() {
+  const [showPopup, setShowPopup] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [includeFlight, setIncludeFlight] = useState(false);
+  const [transport, setTransport] = useState("none");
+  const [hotelOption, setHotelOption] = useState("withoutFood");
+  const [selectedPlaces, setSelectedPlaces] = useState([]);
+
+  const handleBookNow = () => {
+    if (isLoggedIn) {
+      setShowPopup(true);
+    } 
+    else {
+      alert('Please log in to proceed with booking.');
+    }
+  };
+
+  const handlePayment = async (customizationOptions) => {
+    const stripe = await stripePromise;
+    const response = await fetch("http://localhost:5000/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: customizationOptions.amount }),
+    });
+
+    const session = await response.json();
+    window.location.href = session.url;
+  };
+
   return (
     <>
       <div id="Home" className="homePage">
@@ -49,6 +69,9 @@ function App() {
           <div className="extras">
             <button><img src={logo1} alt="" /> ENG</button>
             <button><img src={logo2} alt="" /> Contact Us</button>
+            <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+              {isLoggedIn ? "Logout" : "Login"}
+            </button>
           </div>
         </div>
         <div className="tagline">
@@ -113,14 +136,27 @@ function App() {
           <div className='tourCard2'>
             <img src={tour2} alt="" />
             <p>
-              <p>Santori Sunset Escape</p>
-              <p>4 Days / 3 Nights  </p>
+              <span>Santori Sunset Escape</span>
+              <span>4 Days / 3 Nights  </span>
             </p>
             <p>Visit historic landmarks like Kinkaku-ji and Fushimi Inari Shrine with an expert guide</p>
-            <p>From Rs 11,000 <button onClick={handlePayment}>Book Now</button></p>
+            <p>From Rs 11,000 <button onClick={handleBookNow}>Book Now</button></p>
           </div>
           <div><img src={tour3} alt="" />Kyoto Cultural Journey</div>
         </div>
+        <TripCustomizationPopup
+            showPopup={showPopup}
+            setShowPopup={setShowPopup}
+            handlePayment={handlePayment}
+            includeFlight={includeFlight}
+            setIncludeFlight={setIncludeFlight}
+            transport={transport}
+            setTransport={setTransport}
+            hotelOption={hotelOption}
+            setHotelOption={setHotelOption}
+            selectedPlaces={selectedPlaces}
+            setSelectedPlaces={setSelectedPlaces}
+        />
       </div>
       <div id='Gallery' className="gallery">
         <div className="galleryContainer">

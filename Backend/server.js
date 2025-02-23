@@ -12,6 +12,10 @@ app.use(express.json());
 
 app.post("/create-checkout-session", async (req, res) => {
     try {
+        const { amount } = req.body;
+        const unitAmount = parseInt(amount * 100);
+        console.log(typeof unitAmount, unitAmount);
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             line_items: [
@@ -22,7 +26,7 @@ app.post("/create-checkout-session", async (req, res) => {
                             name: "Santori Sunset Escape",
                             images: ["https://images1.livehindustan.com/uploadimage/library/2023/04/10/16_9/free_2/lonavala_to_lavasa_these_7_destinations_near_mumbai_are_very_special_1681097647.jpg"],
                         },
-                        unit_amount: 1100000,
+                        unit_amount: unitAmount,
                     },
                     quantity: 1,
                 },
@@ -31,7 +35,6 @@ app.post("/create-checkout-session", async (req, res) => {
             success_url: "http://localhost:5173/success",
             cancel_url: "http://localhost:5173/cancel",
         });
-
         res.json({ url: session.url });
     } catch (error) {
         res.status(500).json({ error: error.message });

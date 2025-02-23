@@ -60,6 +60,9 @@ body::-webkit-scrollbar {
 
 /* ************************************************************************************************************* */
 
+.extras {
+  display: flex;
+}
 .extras button {
   display: inline-flex;
   gap: 3px;
@@ -377,7 +380,7 @@ body::-webkit-scrollbar {
   display: flex;
   justify-content: space-between;
 }
-.tourCard2 p:nth-child(2) p {
+.tourCard2 p:nth-child(2) span {
   margin: 3px 0px;
 }
 .tourCard2 p:nth-child(3) {
