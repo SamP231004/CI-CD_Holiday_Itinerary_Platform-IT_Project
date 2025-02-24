@@ -5,7 +5,7 @@ import logo3 from './Images_Used/arrow.png';
 import image1 from './Images_Used/card1.jpg';
 import image2 from './Images_Used/card2.jpg';
 import dest1 from './Images_Used/spring.jpg';
-import dest2 from './Images_Used/street.jpg'; 
+import dest2 from './Images_Used/street.jpg';
 import dest3 from './Images_Used/snow.jpg';
 import tour1 from './Images_Used/night.jpg'
 import tour2 from './Images_Used/sunrise.jpg'
@@ -31,10 +31,57 @@ function App() {
   const [hotelOption, setHotelOption] = useState("withoutFood");
   const [selectedPlaces, setSelectedPlaces] = useState([]);
 
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+
+  const handleLoginClick = () => {
+    setShowLoginPopup(true);
+  };
+
+  const handleCloseLoginPopup = () => {
+    setShowLoginPopup(false);
+  };
+
+  const handleLoginRegister = async () => {
+    const endpoint = isRegistering ? 'register' : 'login';
+    try {
+      const response = await fetch(`http://localhost:5000/${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsLoggedIn(true);
+        alert(data.message);
+        setShowLoginPopup(false);
+      }
+      else {
+        alert(data.message);
+      }
+    }
+    catch (error) {
+      console.error('Error during login/registration:', error);
+      alert('An error occurred. Please try again.');
+    }
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUsername('');
+    setPassword('');
+  };
+
   const handleBookNow = () => {
     if (isLoggedIn) {
       setShowPopup(true);
-    } 
+    }
     else {
       alert('Please log in to proceed with booking.');
     }
@@ -43,9 +90,9 @@ function App() {
   const handlePayment = async (customizationOptions) => {
     const stripe = await stripePromise;
     const response = await fetch("http://localhost:5000/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: customizationOptions.amount }),
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: customizationOptions.amount }),
     });
 
     const session = await response.json();
@@ -63,15 +110,17 @@ function App() {
             <a href="#Home">Home</a>
             <a href="#Destination">Destination</a>
             <a href="#TopTours">Top Tours</a>
-            <a href="#Gallery">Gallery</a> 
+            <a href="#Gallery">Gallery</a>
             <a href="#AboutUs">About Us</a>
           </div>
           <div className="extras">
             <button><img src={logo1} alt="" /> ENG</button>
             <button><img src={logo2} alt="" /> Contact Us</button>
-            <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
-              {isLoggedIn ? "Logout" : "Login"}
-            </button>
+            {isLoggedIn ? (
+              <button onClick={handleLogout}>Logout</button>
+            ) : (
+              <button onClick={handleLoginClick}>Login</button>
+            )}
           </div>
         </div>
         <div className="tagline">
@@ -145,37 +194,64 @@ function App() {
           <div><img src={tour3} alt="" />Kyoto Cultural Journey</div>
         </div>
         <TripCustomizationPopup
-            showPopup={showPopup}
-            setShowPopup={setShowPopup}
-            handlePayment={handlePayment}
-            includeFlight={includeFlight}
-            setIncludeFlight={setIncludeFlight}
-            transport={transport}
-            setTransport={setTransport}
-            hotelOption={hotelOption}
-            setHotelOption={setHotelOption}
-            selectedPlaces={selectedPlaces}
-            setSelectedPlaces={setSelectedPlaces}
+          showPopup={showPopup}
+          setShowPopup={setShowPopup}
+          handlePayment={handlePayment}
+          includeFlight={includeFlight}
+          setIncludeFlight={setIncludeFlight}
+          transport={transport}
+          setTransport={setTransport}
+          hotelOption={hotelOption}
+          setHotelOption={setHotelOption}
+          selectedPlaces={selectedPlaces}
+          setSelectedPlaces={setSelectedPlaces}
         />
       </div>
       <div id='Gallery' className="gallery">
         <div className="galleryContainer">
-        <div className="image-track">
-          <img src={gallery1} alt="" />
-          <img src={gallery2} alt="" />
-          <img src={gallery3} alt="" />
-          <img src={gallery4} alt="" />
-          <img src={gallery5} alt="" />
-          <img src={gallery6} alt="" />
-          <img src={gallery1} alt="" />
-          <img src={gallery2} alt="" />
-          <img src={gallery3} alt="" />
-          <img src={gallery4} alt="" />
-          <img src={gallery5} alt="" />
-          <img src={gallery6} alt="" />
-        </div>
+          <div className="image-track">
+            <img src={gallery1} alt="" />
+            <img src={gallery2} alt="" />
+            <img src={gallery3} alt="" />
+            <img src={gallery4} alt="" />
+            <img src={gallery5} alt="" />
+            <img src={gallery6} alt="" />
+            <img src={gallery1} alt="" />
+            <img src={gallery2} alt="" />
+            <img src={gallery3} alt="" />
+            <img src={gallery4} alt="" />
+            <img src={gallery5} alt="" />
+            <img src={gallery6} alt="" />
+          </div>
         </div>
       </div>
+      {showLoginPopup && (
+        <div className="login-popup">
+          <div className="login-popup-content">
+            <span className="close-popup" onClick={handleCloseLoginPopup}>
+              &times;
+            </span>
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button onClick={handleLoginRegister}>
+              {isRegistering ? 'Register' : 'Login'}
+            </button>
+            <button onClick={() => setIsRegistering(!isRegistering)}>
+              {isRegistering ? 'Switch to Login' : 'Switch to Register'}
+            </button>
+          </div>
+        </div>
+      )}
     </>
   )
 }
