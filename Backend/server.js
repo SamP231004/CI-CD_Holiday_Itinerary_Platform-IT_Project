@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import bodyParser from "body-parser";
 import User from "./User.model.js";
+import tripRoutes from "./tripRoutes.routes.js"
 
 dotenv.config();
 const app = express();
@@ -98,5 +99,7 @@ app.post("/create-checkout-session", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+app.use("/trips", tripRoutes);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

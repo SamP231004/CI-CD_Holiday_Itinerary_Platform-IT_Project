@@ -13,6 +13,15 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 8,
     },
+    trips: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Trip' }],
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 userSchema.pre('save', function (next) {
