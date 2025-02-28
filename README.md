@@ -50,3 +50,20 @@ To develop an intelligent travel planning platform that leverages technology to 
 ## 📚 Guided and Mentored by:
 **Prof. Senthilnathan (SCOPE)** 📖  
 Course: IT Project Management (CBS3012) 🎓
+
+
+## Few ScreenShots:
+
+![alt text](Frontend/src/Images_Used/ScreenShots/1.png)
+
+![alt text](Frontend/src/Images_Used/ScreenShots/2.png)
+
+![alt text](Frontend/src/Images_Used/ScreenShots/3.png)
+
+![alt text](Frontend/src/Images_Used/ScreenShots/4.png)
+
+![alt text](Frontend/src/Images_Used/ScreenShots/5.png)
+
+![alt text](Frontend/src/Images_Used/ScreenShots/6.png)
+
+![alt text](Frontend/src/Images_Used/ScreenShots/7.png)
