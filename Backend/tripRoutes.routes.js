@@ -7,20 +7,32 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     try {
         const { userId, text } = req.body;
+        console.log('Received userId:', userId);
+        console.log('Received text:', text);
 
         const newTrip = new Trip({ userId, text });
+        console.log('New trip object:', newTrip);
+
         await newTrip.save();
+        console.log('Trip saved successfully');
 
         const user = await User.findById(userId);
+        console.log('Found user:', user);
         if (user) {
             user.trips.push(newTrip._id);
             await user.save();
+            console.log('User trips updated');
         }
 
         res.status(201).json(newTrip);
     }
     catch (error) {
-        console.error(error);
+        console.error('Error in POST /trips:', error);
+
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ message: 'Validation error', errors: error.errors });
+        }
+
         res.status(500).json({ message: 'Error creating trip' });
     }
 });

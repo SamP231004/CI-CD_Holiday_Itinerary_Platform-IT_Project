@@ -23,6 +23,8 @@ const stripePromise = loadStripe(import.meta.env.VITE_REACT_APP_KEY);
 import TripCustomizationPopup from './Itinerary/TripCustomizationPopup.jsx';
 import { useState } from 'react';
 
+import TripManagerPopup from './TripManagerPopup.jsx';
+
 function App() {
   const [showPopup, setShowPopup] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,6 +37,7 @@ function App() {
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   const handleLoginClick = () => {
     setShowLoginPopup(true);
@@ -42,6 +45,16 @@ function App() {
 
   const handleCloseLoginPopup = () => {
     setShowLoginPopup(false);
+  };
+
+  const [isTripManagerPopupOpen, setIsTripManagerPopupOpen] = useState(false);
+
+  const handleLogoClick = () => {
+    setIsTripManagerPopupOpen(true);
+  };
+
+  const handleCloseTripManagerPopup = () => {
+    setIsTripManagerPopupOpen(false);
   };
 
   const handleLoginRegister = async () => {
@@ -61,11 +74,15 @@ function App() {
         setIsLoggedIn(true);
         alert(data.message);
         setShowLoginPopup(false);
-      }
+        if (!isRegistering) {
+          setUserId(data.userId);
+          console.log('User ID after login:', data.userId);
+        }
+      } 
       else {
         alert(data.message);
       }
-    }
+    } 
     catch (error) {
       console.error('Error during login/registration:', error);
       alert('An error occurred. Please try again.');
@@ -76,6 +93,7 @@ function App() {
     setIsLoggedIn(false);
     setUsername('');
     setPassword('');
+    setUserId(null);
   };
 
   const handleBookNow = () => {
@@ -104,7 +122,7 @@ function App() {
       <div id="Home" className="homePage">
         <div className="navbar">
           <div className="logo">
-            <img src={logo} alt="" />
+            <img src={logo} alt="Logo" onClick={handleLogoClick} style={{ cursor: "pointer" }} />
           </div>
           <div className="tabs">
             <a href="#Home">Home</a>
@@ -225,6 +243,11 @@ function App() {
           </div>
         </div>
       </div>
+      <TripManagerPopup
+        isOpen={isTripManagerPopupOpen}
+        onClose={handleCloseTripManagerPopup}
+        userId={userId}
+      />
       {showLoginPopup && (
         <div className="login-popup">
           <div className="login-popup-content">
